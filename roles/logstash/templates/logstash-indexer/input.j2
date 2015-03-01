@@ -1,0 +1,18 @@
+# {{ ansible_managed }}
+
+input {
+    redis {
+        host => "{{ redis_bind_ip }}"
+		type => "redis"
+
+        # these settings should match the output of the agent
+        data_type => "list"
+        key => "logstash"
+
+        # We use the 'json' codec here because we expect to read
+        # json events from redis.
+        # codec => json
+    }
+}
+
+# {{ ansible_managed }}

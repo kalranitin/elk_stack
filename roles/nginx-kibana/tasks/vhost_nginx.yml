@@ -1,0 +1,19 @@
+- name: Disable default Vhost on CentOS OS family
+  file: path=/etc/nginx/conf.d/{{ item }} state=absent
+  with_items:
+   - default.conf
+   - example_ssl.conf
+  when: ansible_os_family == "RedHat"
+  notify:
+   - restart nginx
+
+- name: Enable Vhost on CentOS OS family
+  template: src=vhost-nginx.j2 dest=/etc/nginx/conf.d/{{ domain }}.conf owner=root group=root mode=0644
+  when: ansible_os_family == "RedHat"
+  notify:
+   - restart nginx
+
+- name: Create htpasswd User
+  htpasswd: path=/etc/nginx/conf.d/{{ domain }}.htpasswd name={{ usname }} password={{ kibana_pass }} owner=root group=root mode=0644
+  notify:
+   - restart nginx

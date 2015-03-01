@@ -1,0 +1,17 @@
+supervisor:
+
+  config:
+    dir: /etc/supervisord.d
+    file: /etc/supervisord.conf
+    default: /etc/default.supervisord.conf
+
+  log:
+    dir: /var/log/supervisord
+    file: supervisord.log
+    level: info
+
+  runtime:
+    dir: /var/run/supervisor
+    nodaemon: "false"
+    socket: supervisord.sock
+    pidfile: supervisord.pid

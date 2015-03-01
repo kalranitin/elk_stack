@@ -1,0 +1,11 @@
+- name: start supervisord
+  shell: /usr/bin/supervisord -c {{supervisor.config.file}}
+  sudo: true
+  
+- name: restart supervisord
+  shell: /usr/bin/supervisorctl stop all && pkill -9 supervisord && /usr/bin/supervisord -c {{supervisor.config.file}}
+  sudo: true
+
+- name: reread supervisord config
+  shell: /usr/bin/supervisorctl reread
+  sudo: true

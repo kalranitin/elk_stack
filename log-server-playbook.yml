@@ -1,0 +1,16 @@
+---
+- name: log-server
+  hosts: elk
+  sudo: true
+
+  # Include the first vars file we find, so create your own var/defaults.yml to overrule our own settings
+  vars_files:
+   - [ vars/defaults.yml, vars/defaults.dist.yml ]
+
+  roles:
+    - { role: java, tags: "java" }
+    - { role: supervisord, tags: "supervisord" }
+    - { role: redis, tags: "redis" }
+    - { role: elasticsearch, tags: "elasticsearch" }
+    - { role: logstash, tags: "logstash" }
+    - { role: nginx-kibana, tags: "kibana" }
