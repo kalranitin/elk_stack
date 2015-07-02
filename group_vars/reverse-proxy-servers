@@ -1,0 +1,15 @@
+log_services: 
+  - service_details: 
+      service_name: 'reverse-proxy'
+      service_log_paths: 
+        - '/platform/reverse_proxy/httpd/logs/access_log'
+        - '/platform/reverse_proxy/httpd/logs/error_log'
+        - '/platform/reverse_proxy/httpd/logs/'
+
+  - service_details: 
+      service_name: 'DMZ-Broker'
+      service_log_paths: 
+        - '/platform/ServiceEngineDMZBroker/log/telemetry.log'
+        - '/platform/ServiceEngineDMZBroker/log/wrapper.log'
+
+is_collectd_available: false

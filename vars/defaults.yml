@@ -1,7 +1,7 @@
 epel_url: "http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm"
 
 # elasticsearch_version: "1.4.2"
-elasticsearch_url: "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.4.2.noarch.rpm"
+elasticsearch_url: "http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.4.2.noarch.rpm"
 
 logstash_version: "logstash-1.4.2"
 logstash_url: "https://download.elasticsearch.org/logstash/logstash/{{ logstash_version }}.tar.gz"
@@ -15,7 +15,7 @@ kibana_admin_email: "root@localhost"
 domain: elk
 
 kibana_version: "kibana-3.0.1"
-kibana_url: "https://download.elasticsearch.org/kibana/kibana/{{ kibana_version }}.tar.gz"
+kibana_url: "http://download.elasticsearch.org/kibana/kibana/{{ kibana_version }}.tar.gz"
 
 # For security reasons this is 127.0.0.1, but you may want to change it to "192.168.33.13" for example
-redis_bind_ip: "127.0.0.1"
+redis_bind_ip: "192.168.33.13"

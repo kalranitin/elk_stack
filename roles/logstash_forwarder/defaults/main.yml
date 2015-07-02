@@ -1,0 +1,10 @@
+# File: main.yml
+# Part: logstash-indexer
+logstash_install_dir: "/opt/logstash"
+
+supervisor:
+
+  config:
+    dir: /etc/supervisord.d
+    file: /etc/supervisord.conf
+    default: /etc/default.supervisord.conf

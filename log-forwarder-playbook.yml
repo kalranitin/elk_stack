@@ -1,0 +1,12 @@
+---
+- name: log-forwader
+  hosts: nsd-servers:reverse-proxy-servers
+  sudo: true
+
+  # Include the first vars file we find, so create your own var/defaults.yml to overrule our own settings
+  vars_files:
+   - [ vars/defaults.yml, vars/defaults.dist.yml ]
+
+  roles:
+    - { role: supervisord, tags: "supervisord" }
+    - { role: logstash_forwarder, tags: "logstash" }

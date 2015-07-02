@@ -1,0 +1,106 @@
+input {
+	exec {
+	    type => 'number-of-db-connections'
+	    command => "netstat –a –n -t -u -p | grep mssqlmaster | wc -l | tr -d '\n'"
+	    interval => 30
+	  }
+	  exec {
+	    type => 'opt-du'
+	    command => 'du -sh /platform'
+	    interval => 30
+	  }
+
+	  exec {
+	    type => 'top-processes'
+	    command => 'ps aux | sort -nk +4 | tail'
+	    interval => 30
+	  }
+    
+
+   udp {
+    port => 25826         # 25826 matches port specified in collectd.conf
+    buffer_size => 1452   # 1452 is the default buffer size for Collectd
+    codec => collectd { } # specific Collectd codec to invoke
+    type => collectd
+  }
+}
+
+
+output {
+        stdout { }
+        redis {
+                host => "10.123.58.24"
+                data_type => "list"
+                key => "logstash"
+        }
+}
+
+sudo sed -i "s/mirrorlist=https/mirrorlist=http/" /etc/yum.repos.d/epel.repo
+
+/usr/bin/supervisorctl stop all
+pkill -9 supervisord
+/usr/bin/supervisord -c /etc/supervisord.conf 
+
+/opt/logstash/logstash-1.4.2/bin/logstash agent -f /etc/logstash.d/indexer/
+
+https://mtalavera.wordpress.com/2015/02/16/monitoring-with-collectd-and-kibana/
+
+u8vTir34g8aTSNZFcFhFvjQCePhpmJ
+
+token
+aPvDwAZbRuZd7TqA5iZi8Q9tWm2KCC
+
+curl -s \
+  --form-string "token=aPvDwAZbRuZd7TqA5iZi8Q9tWm2KCC" \
+  --form-string "user=u8vTir34g8aTSNZFcFhFvjQCePhpmJ" \
+  --form-string "message=hello world" \
+  https://api.pushover.net/1/messages.json
+  
+  
+  
+# For each instance where collectd is running, we define 
+# hostname proper to that instance. When metrics from
+# multiple instances are aggregated, hostname will tell 
+# us were they came from.
+Hostname "nsd1"
+ 
+# Fully qualified domain name, false for our little lab
+FQDNLookup false
+
+Interval     900
+ 
+# Plugins we are going to use with their configurations,
+# if needed
+LoadPlugin cpu
+ 
+LoadPlugin df
+<Plugin df>
+        Device "/dev/mapper/VolGroup-lv_root"
+        MountPoint "/"
+        FSType "ext4"
+        ReportReserved "true"
+</Plugin>
+ 
+LoadPlugin interface
+<Plugin interface>
+        Interface "eth1"
+        IgnoreSelected false
+</Plugin>
+ 
+LoadPlugin network
+<Plugin network>
+        Server "192.168.33.11" "25826"
+</Plugin>
+ 
+LoadPlugin memory
+ 
+LoadPlugin syslog
+<Plugin syslog>
+        LogLevel info
+</Plugin>
+ 
+LoadPlugin swap
+ 
+<Include "/etc/collectd/collectd.conf.d">
+        Filter ".conf"
+</Include>

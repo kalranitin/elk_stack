@@ -1,0 +1,43 @@
+# {{ ansible_managed }}
+
+input {
+
+{% for services in log_services %}
+    file {
+        path => ["{% for logpath in services.service_details.service_log_paths %}{{ logpath }}{% if not loop.last %}","{% endif %}{% endfor %}"]
+        type => "{{ services.service_details.service_name }}"
+	    exclude => ["*.gz"]
+    }
+{% endfor %}    
+	
+
+{% if is_collectd_available == true %}	
+    udp {
+      port => 25826         # 25826 matches port specified in collectd.conf
+      buffer_size => 1452   # 1452 is the default buffer size for Collectd
+      codec => collectd { } # specific Collectd codec to invoke
+      type => collectd
+    }
+	
+	exec {
+	    type => 'number-of-db-connections'
+	    command => "netstat –a –n -t -u -p | grep mssqlmaster | wc -l | tr -d '\n'"
+	    interval => 900
+	  }
+	  exec {
+	    type => 'opt-du'
+	    command => 'du -sh /platform'
+	    interval => 900
+	  }
+
+	  exec {
+	    type => 'top-processes'
+	    command => 'ps aux | sort -nk +4 | tail'
+	    interval => 900
+	  }
+	
+{% endif %}
+
+}
+
+# {{ ansible_managed }}

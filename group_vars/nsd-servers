@@ -1,0 +1,29 @@
+log_services: 
+  - service_details: 
+      service_name: 'servicedesk'
+      service_log_paths: 
+        - '/platform/servicedesk/servicedesk_tomcat/logs/catalina.out'
+        - '/platform/servicedesk/servicedesk_tomcat/logs/localhost*.log'
+        - '/platform/servicedesk/servicedesk_tomcat/logs/servicedesk/platform_default.csv'
+        - '/platform/servicedesk/servicedesk_tomcat/logs/servicedesk/platform_sql_jdbc.csv'
+        - '/platform/servicedesk/servicedesk_tomcat/logs/servicedesk/servicedesk.csv'
+        - '/platform/servicedesk/servicedesk_tomcat/logs/servicedesk/platform_scheduler.csv'
+        - '/platform/servicedesk/servicedesk_tomcat/logs/servicedesk/cacheframework_logs.csv'
+        - '/platform/servicedesk/servicedesk_tomcat/logs/servicedesk/Guardrails_logs.csv'
+
+  - service_details: 
+      service_name: 'framework_services'
+      service_log_paths: 
+        - '/platform/framework_services/apache-tomcat-7.0.52/logs/catalina.out'
+        - '/platform/framework_services/apache-tomcat-7.0.52/logs/localhost*.log'
+        - '/platform/framework_services/apache-tomcat-7.0.52/logs/lettuce-services.log'
+        - '/platform/framework_services/apache-tomcat-7.0.52/logs/tam.log'
+        - '/platform/framework_services/apache-tomcat-7.0.52/logs/wall.log'
+
+  - service_details: 
+      service_name: 'itpm'
+      service_log_paths: 
+        - '/platform/itpm/logs/itpm.log'
+
+is_collectd_available: true
+    

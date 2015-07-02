@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+
+output {
+	stdout { }
+	redis {
+		host => "{{redis_bind_ip}}"
+		data_type => "list"
+		key => "logstash"
+	}
+}
+
+# {{ ansible_managed }}

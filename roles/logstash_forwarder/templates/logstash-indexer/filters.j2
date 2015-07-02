@@ -1,0 +1,17 @@
+# {{ ansible_managed }}
+
+filter {
+  if [type] == "number-of-db-connections" {
+    grok {
+      type => "number-of-db-connections"
+      pattern => "%{NUMBER:count}"
+      named_captures_only => true
+    }
+
+    mutate {
+      convert => { "count" => "integer" }
+    }
+  }
+}
+
+# {{ ansible_managed }}
